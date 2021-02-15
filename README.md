@@ -14,12 +14,12 @@ User can choose to either use main functionality via high level api, or use low 
 Virtual-disks needs the Virtual Disk Development Kit (VDDK) to connect with 
 vSphere.
 The VDDK can be downloaded from here: https://code.vmware.com/web/sdk/7.0/vddk.  Virtual-disks requires the 7.0.0 VDDK release.
-After installing, please untar into the virtual-disks directory:
+After installing, please untar into the /usr/local/ directory:
 
 ```
-> cd $GOPATH/src/github.com/vmware-tanzu/astrolabe/vendor/github.com/vmware/virtual-disks
+> cd /usr/local
 
-> tar xzf <path to VMware-vix-disklib-*version*.x86_64.tar.gz>.
+> sudo tar xzf <path to VMware-vix-disklib-*version*.x86_64.tar.gz>.
 ```
 
 VDDK is free to use for personal and internal use.  Redistribution requires a no-fee license, please contact VMware to 
