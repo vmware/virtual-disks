@@ -18,7 +18,7 @@ package main
 
 import (
 	"github.com/vmware/virtual-disks/pkg/disklib"
-	"github.com/vmware/virtual-disks/pkg/virtual-disks"
+	"github.com/vmware/virtual-disks/pkg/virtual_disks"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"os"
@@ -45,7 +45,7 @@ func TestAligned(t *testing.T) {
 	params := disklib.NewConnectParams("", serverName,thumPrint, userName,
 		password, fcdId, ds, "", "", identity, "", disklib.VIXDISKLIB_FLAG_OPEN_COMPRESSION_SKIPZ,
 		false, disklib.NBD)
-	diskReaderWriter, err := gvddk_high.Open(params, logrus.New())
+	diskReaderWriter, err := virtual_disks.Open(params, logrus.New())
 	if err != nil {
 		disklib.EndAccess(params)
 		t.Errorf("Open failed, got error code: %d, error message: %s.", err.VixErrorCode(), err.Error())
@@ -109,7 +109,7 @@ func TestMiss1(t *testing.T) {
 	params := disklib.NewConnectParams("", serverName,thumPrint, userName,
 		password, fcdId, ds, "", "", identity, "", disklib.VIXDISKLIB_FLAG_OPEN_COMPRESSION_SKIPZ,
 		false, disklib.NBD)
-	diskReaderWriter, err := gvddk_high.Open(params, logrus.New())
+	diskReaderWriter, err := virtual_disks.Open(params, logrus.New())
 	if err != nil {
 		disklib.EndAccess(params)
 		t.Errorf("Open failed, got error code: %d, error message: %s.", err.VixErrorCode(), err.Error())
@@ -173,7 +173,7 @@ func TestMiss2(t *testing.T) {
 	params := disklib.NewConnectParams("", serverName,thumPrint, userName,
 		password, fcdId, ds, "", "", identity, "", disklib.VIXDISKLIB_FLAG_OPEN_COMPRESSION_SKIPZ,
 		false, disklib.NBD)
-	diskReaderWriter, err := gvddk_high.Open(params, logrus.New())
+	diskReaderWriter, err := virtual_disks.Open(params, logrus.New())
 	if err != nil {
 		disklib.EndAccess(params)
 		t.Errorf("Open failed, got error code: %d, error message: %s.", err.VixErrorCode(), err.Error())
@@ -237,7 +237,7 @@ func TestMiss3(t *testing.T) {
 	params := disklib.NewConnectParams("", serverName,thumPrint, userName,
 		password, fcdId, ds, "", "", identity, "", disklib.VIXDISKLIB_FLAG_OPEN_COMPRESSION_SKIPZ,
 		false, disklib.NBD)
-	diskReaderWriter, err := gvddk_high.Open(params, logrus.New())
+	diskReaderWriter, err := virtual_disks.Open(params, logrus.New())
 	if err != nil {
 		disklib.EndAccess(params)
 		t.Errorf("Open failed, got error code: %d, error message: %s.", err.VixErrorCode(), err.Error())
@@ -301,7 +301,7 @@ func TestMissAlign(t *testing.T) {
 	params := disklib.NewConnectParams("", serverName,thumPrint, userName,
 		password, fcdId, ds, "", "", identity, "", disklib.VIXDISKLIB_FLAG_OPEN_COMPRESSION_SKIPZ,
 		false, disklib.NBD)
-	diskReaderWriter, err := gvddk_high.Open(params, logrus.New())
+	diskReaderWriter, err := virtual_disks.Open(params, logrus.New())
 	if err != nil {
 		disklib.EndAccess(params)
 		t.Errorf("Open failed, got error code: %d, error message: %s.", err.VixErrorCode(), err.Error())
