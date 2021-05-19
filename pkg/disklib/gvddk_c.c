@@ -31,7 +31,13 @@ bool ProgressFunc(void *progressData, int percentCompleted)
 
 VixError Init(uint32 major, uint32 minor, char* libDir)
 {
-    VixError result = VixDiskLib_InitEx(major, minor, NULL, NULL, NULL, libDir, NULL);
+    VixError result = VixDiskLib_Init(major, minor, NULL, NULL, NULL, libDir);
+    return result;
+}
+
+VixError InitEx(uint32 major, uint32 minor, char* libDir, char* configFile)
+{
+    VixError result = VixDiskLib_InitEx(major, minor, NULL, NULL, NULL, libDir, configFile);
     return result;
 }
 
