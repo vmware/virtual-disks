@@ -40,6 +40,18 @@ func Init(majorVersion uint32, minorVersion uint32, dir string) VddkError {
 	return nil
 }
 
+func InitEx(majorVersion uint32, minorVersion uint32, dir string, configFile string) VddkError {
+	libDir := C.CString(dir)
+	defer C.free(unsafe.Pointer(libDir))
+	config := C.CString(configFile)
+	defer C.free(unsafe.Pointer(config))
+	result := C.Init(C.uint32(majorVersion), C.uint32(minorVersion), libDir, config)
+	if result != 0 {
+		return NewVddkError(uint64(result), fmt.Sprintf("Initialize failed. The error code is %d.", result))
+	}
+	return nil
+}
+
 func prepareConnectParams(appGlobal ConnectParams) (*C.VixDiskLibConnectParams, []*C.char) {
 	// Trans string to CString
 	vmxSpec := C.CString(appGlobal.vmxSpec)
