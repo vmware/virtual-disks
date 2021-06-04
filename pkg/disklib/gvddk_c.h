@@ -31,6 +31,7 @@ typedef struct {
 void LogFunc(const char *fmt, va_list args);
 void GoLogWarn(char * msg);
 VixError Init(uint32 major, uint32 minor, char* libDir);
+VixError InitEx(uint32 major, uint32 minor, char* libDir, char* configFile);
 VixError Connect(VixDiskLibConnectParams *cnxParams, VixDiskLibConnection *connection);
 VixError ConnectEx(VixDiskLibConnectParams *cnxParams, bool readOnly, char* transportModes, VixDiskLibConnection *connection);
 DiskHandle Open(VixDiskLibConnection conn, char* path, uint32 flags);
