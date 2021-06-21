@@ -41,11 +41,17 @@ func Init(majorVersion uint32, minorVersion uint32, dir string) VddkError {
 }
 
 func InitEx(majorVersion uint32, minorVersion uint32, dir string, configFile string) VddkError {
+	var result int64
 	libDir := C.CString(dir)
 	defer C.free(unsafe.Pointer(libDir))
-	config := C.CString(configFile)
-	defer C.free(unsafe.Pointer(config))
-	result := C.Init(C.uint32(majorVersion), C.uint32(minorVersion), libDir, config)
+	if configFile == "" {
+		result = C.Init(C.uint32(majorVersion), C.uint32(minorVersion), libDir)
+	} else {
+		config := C.CString(configFile)
+		defer C.free(unsafe.Pointer(config))
+		result = C.InitEx(C.uint32(majorVersion), C.uint32(minorVersion), libDir, config)
+	}
+
 	if result != 0 {
 		return NewVddkError(uint64(result), fmt.Sprintf("Initialize failed. The error code is %d.", result))
 	}
