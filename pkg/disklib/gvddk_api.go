@@ -41,7 +41,7 @@ func Init(majorVersion uint32, minorVersion uint32, dir string) VddkError {
 }
 
 func InitEx(majorVersion uint32, minorVersion uint32, dir string, configFile string) VddkError {
-	var result int64
+	var result C.VixError
 	libDir := C.CString(dir)
 	defer C.free(unsafe.Pointer(libDir))
 	if configFile == "" {
