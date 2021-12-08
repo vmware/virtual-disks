@@ -122,6 +122,14 @@ func (this DiskReaderWriter) ReadAt(p []byte, off int64) (n int, err error) {
 	return this.diskHandle.ReadAt(p, off)
 }
 
+func (this DiskReaderWriter) ReadAtAsync(p []byte, off int64) (err error) {
+	return this.diskHandle.ReadAtAsync(p, off)
+}
+
+func (this DiskReaderWriter) Wait() (err error) {
+	return disklib.Wait(this.diskHandle.dli)
+}
+
 func (this DiskReaderWriter) WriteAt(p []byte, off int64) (n int, err error) {
 	return this.diskHandle.WriteAt(p, off)
 }
@@ -242,6 +250,28 @@ func (this DiskConnectHandle) ReadAt(p []byte, off int64) (n int, err error) {
 		copy(p[total:], tmpSlice)
 	}
 	return total, nil
+}
+
+func (this DiskConnectHandle) ReadAtAsync(p []byte, off int64) (err error) {
+	capacity := this.Capacity()
+	readLen := int64(len(p))
+	// If we're being asked for a read beyond the end of the disk, return EOF
+	if off+readLen > capacity {
+		return io.EOF
+	}
+	if aligned(len(p), off) {
+		startSector := off / disklib.VIXDISKLIB_SECTOR_SIZE
+		numSectors := readLen / disklib.VIXDISKLIB_SECTOR_SIZE
+		err := disklib.ReadAsync(this.dli, uint64(startSector), uint64(numSectors), p)
+		if err != nil {
+			return mapError(err)
+		}
+	} else {
+		//Fall back on synchronous read for complex case
+		_, err := this.ReadAt(p, off)
+		return err
+	}
+	return nil
 }
 
 func (this DiskConnectHandle) WriteAt(p []byte, off int64) (n int, err error) {

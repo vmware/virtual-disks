@@ -396,6 +396,23 @@ func Read(diskHandle VixDiskLibHandle, startSector uint64, numSectors uint64, bu
 	return nil
 }
 
+func ReadAsync(diskHandle VixDiskLibHandle, startSector uint64, numSectors uint64, buf []byte) VddkError {
+	cbuf := ((*C.uint8)(unsafe.Pointer(&buf[0])))
+	res := C.VixDiskLib_ReadAsync(diskHandle.dli, C.VixDiskLibSectorType(startSector), C.VixDiskLibSectorType(numSectors), cbuf, nil, nil)
+	if res != 0 {
+		return NewVddkError(uint64(res), fmt.Sprintf("Read async from virtual disk file failed. The error code is %d.", res))
+	}
+	return nil
+}
+
+func Wait(diskHandle VixDiskLibHandle) VddkError {
+	res := C.VixDiskLib_Wait(diskHandle.dli)
+	if res != 0 {
+		return NewVddkError(uint64(res), fmt.Sprintf("Wait failed. The error code is %d.", res))
+	}
+	return nil
+}
+
 func Write(diskHandle VixDiskLibHandle, startSector uint64, numSectors uint64, buf []byte) VddkError {
 	cbuf := ((*C.uint8)(unsafe.Pointer(&buf[0])))
 	res := C.VixDiskLib_Write(diskHandle.dli, C.VixDiskLibSectorType(startSector), C.VixDiskLibSectorType(numSectors), cbuf)
