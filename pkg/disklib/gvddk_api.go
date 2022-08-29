@@ -446,7 +446,12 @@ func QueryAllocatedBlocks(diskHandle VixDiskLibHandle, startSector VixDiskLibSec
 	}
 
 	retList := make([]VixDiskLibBlock, bld.numBlocks)
-	C.BlockListCopyAndFree(&bld, (*C.VixDiskLibBlock)(unsafe.Pointer(&retList[0])))
+
+	if bld.numBlocks > 0 {
+		C.BlockListCopyAndFree(&bld, (*C.VixDiskLibBlock)(unsafe.Pointer(&retList[0])))
+	} else {
+		C.VixDiskLib_FreeBlockList((*C.VixDiskLibBlockList)(bld.blockList))
+	}
 
 	return retList, nil
 }
