@@ -42,7 +42,8 @@ func OpenFCD(serverName string, thumbPrint string, userName string, password str
 		"",
 		flags,
 		readOnly,
-		transportMode)
+		transportMode,
+		"")
 	return Open(globalParams, logger)
 }
 

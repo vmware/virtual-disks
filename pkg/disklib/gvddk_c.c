@@ -47,9 +47,9 @@ VixError Connect(VixDiskLibConnectParams *cnxParams, VixDiskLibConnection *conne
     return vixError;
 }
 
-VixError ConnectEx(VixDiskLibConnectParams *cnxParams, bool readOnly, char* transportModes, VixDiskLibConnection *connection) {
+VixError ConnectEx(VixDiskLibConnectParams *cnxParams, bool readOnly, char* snapshotRef, char* transportModes, VixDiskLibConnection *connection) {
     VixError vixError;
-    vixError = VixDiskLib_ConnectEx(cnxParams, readOnly, "", transportModes, connection);
+    vixError = VixDiskLib_ConnectEx(cnxParams, readOnly, snapshotRef, transportModes, connection);
     return vixError;
 }
 

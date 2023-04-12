@@ -40,7 +40,7 @@ func TestCreate(t *testing.T) {
 	identity := os.Getenv("IDENTITY")
 	params := disklib.NewConnectParams("", serverName,thumPrint, userName,
 		password, fcdId, ds, "", "", identity, "", disklib.VIXDISKLIB_FLAG_OPEN_COMPRESSION_SKIPZ,
-		false, disklib.NBD)
+		false, disklib.NBD, "")
 	err1 := disklib.PrepareForAccess(params)
 	if err1 != nil {
 		t.Errorf("Prepare for access failed. Error code: %d. Error message: %s.", err1.VixErrorCode(), err1.Error())

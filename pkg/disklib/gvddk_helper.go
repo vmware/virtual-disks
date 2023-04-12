@@ -82,20 +82,21 @@ const (
 type VixDiskLibSectorType uint64
 
 type ConnectParams struct {
-	vmxSpec    string
-	serverName string
-	thumbPrint string
-	userName   string
-	password   string
-	fcdId      string
-	ds         string
-	fcdssId    string
-	cookie     string
-	identity   string
-	path       string
-	flag       uint32
-	readOnly   bool
-	mode       string
+	vmxSpec     string
+	serverName  string
+	thumbPrint  string
+	userName    string
+	password    string
+	fcdId       string
+	ds          string
+	fcdssId     string
+	cookie      string
+	identity    string
+	path        string
+	flag        uint32
+	readOnly    bool
+	mode        string
+	snapshotRef string
 }
 
 type VixDiskLibHandle struct {
@@ -172,22 +173,23 @@ func (this vddkErrorImpl) VixErrorCode() uint64 {
 }
 
 func NewConnectParams(vmxSpec string, serverName string, thumbPrint string, userName string, password string,
-	fcdId string, ds string, fcdssId string, cookie string, identity string, path string, flag uint32, readOnly bool, mode string) ConnectParams {
+	fcdId string, ds string, fcdssId string, cookie string, identity string, path string, flag uint32, readOnly bool, mode string, snapshotRef string) ConnectParams {
 	params := ConnectParams{
-		vmxSpec:    vmxSpec,
-		serverName: serverName,
-		thumbPrint: thumbPrint,
-		userName:   userName,
-		password:   password,
-		fcdId:      fcdId,
-		ds:         ds,
-		fcdssId:    fcdssId,
-		cookie:     cookie,
-		identity:   identity,
-		path:       path,
-		flag:       flag,
-		readOnly:   readOnly,
-		mode:       mode,
+		vmxSpec:     vmxSpec,
+		serverName:  serverName,
+		thumbPrint:  thumbPrint,
+		userName:    userName,
+		password:    password,
+		fcdId:       fcdId,
+		ds:          ds,
+		fcdssId:     fcdssId,
+		cookie:      cookie,
+		identity:    identity,
+		path:        path,
+		flag:        flag,
+		readOnly:    readOnly,
+		mode:        mode,
+		snapshotRef: snapshotRef,
 	}
 	return params
 }
